@@ -1,4 +1,7 @@
 ## Hi there 👋
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&vCenter=true&width=435&lines=Hey%F0%9F%91%8B%2C+I'm+Edzel.;A+Fullstack+Developer.;And+a+lifetime+learner.)](https://git.io/typing-svg)
+
+[*My other profile*](https://github.com/edzel-apollo)
 
 #### 🔖 Random Quote or Fun-Fact
 <a href="https://github.com/marketplace/actions/quote-readme">
