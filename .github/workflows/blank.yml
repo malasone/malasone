@@ -3,12 +3,35 @@ name: Update Quote Readme
 on:
   workflow_dispatch:
   schedule:
-    # Runs at 2 UTC everyday
-    - cron: "0 2 * * *"
+    # Runs at 2:00 UTC every weekday (Mon-Fri)
+    - cron: "0 2 * * 1-5"
 
 jobs:
+  maybe-run:
+    name: Decide to Run
+    runs-on: ubuntu-latest
+    outputs:
+      run_job: ${{ steps.decide.outputs.run_job }}
+    steps:
+      - name: Decide Randomly (1-4 runs per week)
+        id: decide
+        run: |
+          # Generate a random number from 1 to 10
+          num=$((RANDOM % 10 + 1))
+          
+          # Allow only numbers <= 4 (≈ 40% chance)
+          if [ "$num" -le 4 ]; then
+            echo "✅ Running the job today (random number: $num)"
+            echo "run_job=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "❌ Skipping the job today (random number: $num)"
+            echo "run_job=false" >> "$GITHUB_OUTPUT"
+          fi
+
   update-readme:
     name: Update Quote README
+    needs: maybe-run
+    if: needs.maybe-run.outputs.run_job == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: siddharth2016/quote-readme@main
